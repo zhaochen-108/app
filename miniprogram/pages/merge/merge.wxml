@@ -1,0 +1,83 @@
+<view class="container">
+  <!-- 组名 -->
+  <view class="merge-header">
+    <text class="merge-title">{{groupName}} - 合并视图</text>
+  </view>
+
+  <!-- 图例 -->
+  <view class="legend">
+    <view class="legend-item" wx:for="{{childrenInfo}}" wx:key="childId">
+      <view class="legend-dot" style="background: {{item.color}}"></view>
+      <text class="legend-name">{{item.childName}}</text>
+    </view>
+    <view class="legend-item free">
+      <view class="legend-dot free-dot"></view>
+      <text class="legend-name">共同空闲</text>
+    </view>
+  </view>
+
+  <!-- 星期选择 -->
+  <scroll-view class="weekday-tabs" scroll-x>
+    <view
+      class="weekday-tab {{currentDay === index + 1 ? 'active' : ''}}"
+      wx:for="{{weekdays}}"
+      wx:key="index"
+      bindtap="selectDay"
+      data-day="{{index + 1}}"
+    >
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <!-- 时间轴视图 -->
+  <scroll-view class="timeline-container" scroll-y style="height: {{scrollHeight}}px">
+    <view class="timeline">
+      <!-- 时间刻度 -->
+      <view class="time-column">
+        <view class="time-label" wx:for="{{hours}}" wx:key="*this">
+          {{item}}:00
+        </view>
+      </view>
+
+      <!-- 课程区域 -->
+      <view class="schedule-column">
+        <!-- 空闲时段背景 -->
+        <view
+          class="free-slot"
+          wx:for="{{freeSlots}}"
+          wx:key="index"
+          style="top: {{item.top}}rpx; height: {{item.height}}rpx"
+        >
+          <text class="free-text">空闲</text>
+        </view>
+
+        <!-- 各孩子的课程 -->
+        <view
+          class="course-block"
+          wx:for="{{displaySchedules}}"
+          wx:key="index"
+          style="top: {{item.top}}rpx; height: {{item.height}}rpx; left: {{item.left}}rpx; width: {{item.width}}rpx; background: {{item.color}}; opacity: 0.85"
+        >
+          <text class="course-block-name">{{item.courseName}}</text>
+          <text class="course-block-time">{{item.startTime}}-{{item.endTime}}</text>
+          <text class="course-block-child">{{item.childName}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 空闲时段摘要 -->
+  <view class="free-summary card" wx:if="{{freeSlots.length > 0}}">
+    <text class="summary-title">✅ {{weekdays[currentDay - 1]}}共同空闲时段</text>
+    <view class="free-list">
+      <view class="free-item" wx:for="{{freeSlots}}" wx:key="index">
+        <text class="free-time">{{item.start}} - {{item.end}}</text>
+        <text class="free-duration">{{item.duration}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="free-summary card" wx:if="{{freeSlots.length === 0 && childrenInfo.length > 0}}">
+    <text class="summary-title">😅 {{weekdays[currentDay - 1]}}没有共同空闲时段</text>
+  </view>
+</view>

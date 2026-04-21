@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="card">
+    <view class="form-item">
+      <text class="form-label">课程名称</text>
+      <input class="form-input" placeholder="如：钢琴课、英语课" value="{{courseName}}" bindinput="onInput" data-field="courseName" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">星期</text>
+      <picker mode="selector" range="{{weekdays}}" value="{{dayIndex}}" bindchange="onDayChange">
+        <view class="form-input picker-value">{{weekdays[dayIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">开始时间</text>
+      <picker mode="selector" range="{{timeSlots}}" value="{{startIndex}}" bindchange="onStartChange">
+        <view class="form-input picker-value">{{timeSlots[startIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">结束时间</text>
+      <picker mode="selector" range="{{timeSlots}}" value="{{endIndex}}" bindchange="onEndChange">
+        <view class="form-input picker-value">{{timeSlots[endIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">上课地点（选填）</text>
+      <input class="form-input" placeholder="如：少年宫3楼" value="{{location}}" bindinput="onInput" data-field="location" />
+    </view>
+  </view>
+
+  <view class="button-group">
+    <button class="btn-primary save-btn" bindtap="save">保存</button>
+  </view>
+</view>

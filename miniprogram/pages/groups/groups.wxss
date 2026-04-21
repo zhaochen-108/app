@@ -1,0 +1,87 @@
+.action-bar {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.action-btn {
+  flex: 1;
+  font-size: 28rpx;
+  margin: 0;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  display: block;
+  padding: 0 10rpx;
+}
+
+.group-card {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+}
+
+.group-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.group-name {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.group-meta {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.group-arrow {
+  font-size: 40rpx;
+  color: #ccc;
+}
+
+/* 孩子选择列表 */
+.child-select-list {
+  margin-top: 10rpx;
+}
+
+.child-select-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  border: 2rpx solid #e8e8e8;
+  border-radius: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.child-select-item.selected {
+  border-color: #4A90D9;
+  background: #f0f5ff;
+}
+
+.child-select-dot {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.check-mark {
+  margin-left: auto;
+  color: #4A90D9;
+  font-weight: bold;
+}
+
+/* 邀请码输入 */
+.invite-input {
+  text-align: center;
+  font-size: 40rpx;
+  letter-spacing: 16rpx;
+  font-weight: bold;
+}

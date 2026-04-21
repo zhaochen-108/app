@@ -1,0 +1,62 @@
+<view class="container">
+  <!-- 用户信息区 -->
+  <view class="user-header card" wx:if="{{userInfo}}">
+    <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+    <text class="nickname">{{userInfo.nickName || '宝妈'}}</text>
+  </view>
+
+  <!-- 孩子列表 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">我的宝贝</text>
+      <view class="btn-add" bindtap="showAddChild">+ 添加宝贝</view>
+    </view>
+
+    <view wx:if="{{children.length === 0}}" class="empty-state">
+      <text class="icon">👶</text>
+      <text class="text">还没有添加宝贝，点击上方添加</text>
+    </view>
+
+    <view class="child-list">
+      <view class="child-card card" wx:for="{{children}}" wx:key="_id" bindtap="goToSchedule" data-child="{{item}}">
+        <view class="child-color" style="background: {{item.color}}"></view>
+        <view class="child-info">
+          <text class="child-name">{{item.name}}</text>
+          <text class="child-courses">{{item.courseCount || 0}} 节课</text>
+        </view>
+        <view class="child-actions">
+          <text class="action-btn" catchtap="editChild" data-child="{{item}}">✏️</text>
+          <text class="action-btn" catchtap="deleteChild" data-child="{{item}}">🗑️</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加孩子弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-title">{{editingChild ? '编辑宝贝' : '添加宝贝'}}</view>
+      <view class="form-item">
+        <text class="form-label">宝贝姓名</text>
+        <input class="form-input" placeholder="请输入宝贝姓名" value="{{childName}}" bindinput="onNameInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">选择颜色</text>
+        <view class="color-picker">
+          <view
+            class="color-dot {{childColor === item ? 'selected' : ''}}"
+            wx:for="{{colors}}"
+            wx:key="*this"
+            style="background: {{item}}"
+            bindtap="selectColor"
+            data-color="{{item}}"
+          ></view>
+        </view>
+      </view>
+      <view class="modal-buttons">
+        <button class="btn-secondary" bindtap="hideModal">取消</button>
+        <button class="btn-primary" bindtap="saveChild">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="card profile-card">
+    <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+    <view class="profile-info">
+      <text class="nickname">{{userInfo.nickName || '未设置昵称'}}</text>
+    </view>
+  </view>
+
+  <!-- 设置昵称 -->
+  <view class="card">
+    <view class="setting-item" bindtap="editNickname">
+      <text class="setting-label">修改昵称</text>
+      <text class="setting-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="card stats-card">
+    <view class="stat-item">
+      <text class="stat-num">{{childCount}}</text>
+      <text class="stat-label">宝贝</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{courseCount}}</text>
+      <text class="stat-label">课程</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{groupCount}}</text>
+      <text class="stat-label">家庭组</text>
+    </view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="card">
+    <view class="setting-item">
+      <text class="setting-label">版本</text>
+      <text class="setting-value">1.0.0</text>
+    </view>
+  </view>
+
+  <!-- 昵称编辑弹窗 -->
+  <view class="modal-mask" wx:if="{{showNicknameModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="">
+      <view class="modal-title">修改昵称</view>
+      <view class="form-item">
+        <input class="form-input" placeholder="请输入昵称" value="{{newNickname}}" bindinput="onNicknameInput" />
+      </view>
+      <view class="modal-buttons">
+        <button class="btn-secondary" bindtap="hideModal">取消</button>
+        <button class="btn-primary" bindtap="saveNickname">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

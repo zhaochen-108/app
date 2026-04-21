@@ -1,0 +1,13 @@
+.picker-value {
+  color: #333;
+  line-height: 1.5;
+}
+
+.button-group {
+  margin-top: 40rpx;
+  padding: 0 30rpx;
+}
+
+.save-btn {
+  width: 100%;
+}

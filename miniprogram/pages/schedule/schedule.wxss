@@ -1,0 +1,109 @@
+.child-header {
+  padding: 20rpx 30rpx;
+  margin-bottom: 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+}
+
+.child-name {
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+/* 星期选择 */
+.weekday-tabs {
+  white-space: nowrap;
+  margin-bottom: 20rpx;
+}
+
+.weekday-tab {
+  display: inline-block;
+  padding: 16rpx 32rpx;
+  margin-right: 12rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.weekday-tab.active {
+  background: #4A90D9;
+  color: #fff;
+}
+
+/* 课程列表 */
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 30rpx;
+  border-left-width: 8rpx;
+  border-left-style: solid;
+}
+
+.schedule-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100rpx;
+  margin-right: 24rpx;
+}
+
+.time-start, .time-end {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.time-sep {
+  font-size: 20rpx;
+  color: #ccc;
+  margin: 4rpx 0;
+}
+
+.schedule-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  margin-bottom: 6rpx;
+}
+
+.course-location {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.schedule-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-btn {
+  font-size: 32rpx;
+  padding: 8rpx;
+}
+
+/* 浮动添加按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #4A90D9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 20rpx rgba(74, 144, 217, 0.4);
+}
+
+.fab text {
+  color: #fff;
+  font-size: 56rpx;
+  line-height: 1;
+}

@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/schedule/schedule",
+    "pages/schedule/edit",
+    "pages/groups/groups",
+    "pages/groups/detail",
+    "pages/merge/merge",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4A90D9",
+    "navigationBarTitleText": "宝贝课程表",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A90D9",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "课程表",
+        "iconPath": "images/tab-schedule.png",
+        "selectedIconPath": "images/tab-schedule-active.png"
+      },
+      {
+        "pagePath": "pages/groups/groups",
+        "text": "家庭组",
+        "iconPath": "images/tab-group.png",
+        "selectedIconPath": "images/tab-group-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
+}

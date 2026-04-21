@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 孩子信息 -->
+  <view class="child-header" style="border-left: 8rpx solid {{childColor}}">
+    <text class="child-name">{{childName}} 的课程表</text>
+  </view>
+
+  <!-- 星期选择 -->
+  <scroll-view class="weekday-tabs" scroll-x>
+    <view
+      class="weekday-tab {{currentDay === index + 1 ? 'active' : ''}}"
+      wx:for="{{weekdays}}"
+      wx:key="index"
+      bindtap="selectDay"
+      data-day="{{index + 1}}"
+    >
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <!-- 当天课程列表 -->
+  <view class="schedule-list">
+    <view wx:if="{{daySchedules.length === 0}}" class="empty-state">
+      <text class="icon">📚</text>
+      <text class="text">{{weekdays[currentDay - 1]}}还没有课程</text>
+    </view>
+
+    <view
+      class="schedule-item card"
+      wx:for="{{daySchedules}}"
+      wx:key="_id"
+      style="border-left: 8rpx solid {{childColor}}"
+    >
+      <view class="schedule-time">
+        <text class="time-start">{{item.startTime}}</text>
+        <text class="time-sep">|</text>
+        <text class="time-end">{{item.endTime}}</text>
+      </view>
+      <view class="schedule-info">
+        <text class="course-name">{{item.courseName}}</text>
+        <text class="course-location" wx:if="{{item.location}}">📍 {{item.location}}</text>
+      </view>
+      <view class="schedule-actions">
+        <text class="action-btn" catchtap="editSchedule" data-schedule="{{item}}">✏️</text>
+        <text class="action-btn" catchtap="deleteSchedule" data-id="{{item._id}}">🗑️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加课程按钮 -->
+  <view class="fab" bindtap="addSchedule">
+    <text>+</text>
+  </view>
+</view>

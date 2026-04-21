@@ -1,0 +1,145 @@
+.group-header {
+  text-align: center;
+  padding: 40rpx 30rpx;
+}
+
+.group-name {
+  font-size: 38rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.invite-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+}
+
+.invite-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.invite-code {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #4A90D9;
+  letter-spacing: 8rpx;
+}
+
+.copy-btn {
+  font-size: 24rpx;
+  color: #4A90D9;
+  border: 2rpx solid #4A90D9;
+  border-radius: 8rpx;
+  padding: 4rpx 16rpx;
+}
+
+.section {
+  margin-top: 30rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+  display: block;
+  padding: 0 10rpx;
+}
+
+.member-list {
+  padding: 10rpx 30rpx;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-name {
+  font-size: 28rpx;
+}
+
+.member-role {
+  font-size: 22rpx;
+  color: #fa8c16;
+  background: #fff7e6;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 孩子标签 */
+.children-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  padding: 0 10rpx;
+}
+
+.child-tag {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  background: #fff;
+  border: 2rpx solid;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+}
+
+.tag-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+}
+
+.tag-owner {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.tag-add {
+  color: #4A90D9;
+  font-size: 24rpx;
+  margin-left: 8rpx;
+}
+
+.child-tag.addable {
+  border-style: dashed;
+  border-color: #ccc;
+}
+
+.add-child-section {
+  margin-top: 20rpx;
+  padding: 0 10rpx;
+}
+
+.sub-title {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+/* 操作按钮 */
+.action-section {
+  margin-top: 50rpx;
+  padding: 0 10rpx 40rpx;
+}
+
+.action-section button {
+  margin-bottom: 20rpx;
+}
+
+.leave-btn {
+  margin-top: 10rpx;
+}
