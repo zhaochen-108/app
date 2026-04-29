@@ -18,7 +18,7 @@ exports.main = async (event, context) => {
   const { action } = event
 
   switch (action) {
-    // 创建家庭组
+    // 创建约玩圈
     case 'create': {
       const userRes = await db.collection('users').where({ _openid: OPENID }).get()
       const nickName = userRes.data.length > 0 ? userRes.data[0].nickName : '宝妈'
@@ -60,14 +60,14 @@ exports.main = async (event, context) => {
       return { success: true, inviteCode }
     }
 
-    // 加入家庭组
+    // 加入约玩圈
     case 'join': {
       const groupRes = await db.collection('groups')
         .where({ inviteCode: event.inviteCode })
         .get()
 
       if (groupRes.data.length === 0) {
-        throw new Error('找不到该家庭组，请检查邀请码')
+        throw new Error('找不到该约玩圈，请检查邀请码')
       }
 
       const group = groupRes.data[0]
@@ -75,7 +75,7 @@ exports.main = async (event, context) => {
       // 检查是否已经是成员
       const isMember = group.members.some(m => m.userId === OPENID)
       if (isMember) {
-        throw new Error('你已经在该家庭组中')
+        throw new Error('你已经在该约玩圈中')
       }
 
       const userRes = await db.collection('users').where({ _openid: OPENID }).get()
@@ -154,7 +154,7 @@ exports.main = async (event, context) => {
       return { success: true }
     }
 
-    // 退出家庭组
+    // 退出约玩圈
     case 'leave': {
       const groupDoc = await db.collection('groups').doc(event.groupId).get()
 
@@ -170,11 +170,11 @@ exports.main = async (event, context) => {
       return { success: true }
     }
 
-    // 解散家庭组
+    // 解散约玩圈
     case 'delete': {
       const groupToDelete = await db.collection('groups').doc(event.groupId).get()
       if (groupToDelete.data.creatorId !== OPENID) {
-        throw new Error('只有组长可以解散家庭组')
+        throw new Error('只有组长可以解散约玩圈')
       }
 
       await db.collection('groups').doc(event.groupId).remove()

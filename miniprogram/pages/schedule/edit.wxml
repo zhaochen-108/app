@@ -1,4 +1,22 @@
-<view class="container">
+<view class="container theme-{{theme}}">
+  <!-- 智能输入 -->
+  <view class="card smart-input-card" wx:if="{{!isEdit}}">
+    <view class="smart-header">
+      <text class="smart-label">✨ 智能输入</text>
+      <text class="smart-hint">输入后点识别，自动填表</text>
+    </view>
+    <input
+      class="form-input smart-input"
+      placeholder="如：周三下午6:30到8点美术课 少年宫"
+      value="{{smartText}}"
+      bindinput="onSmartInput"
+      confirm-type="done"
+      bindconfirm="parseSmartText"
+    />
+    <button class="btn-smart" bindtap="parseSmartText">识别填入</button>
+  </view>
+
+  <!-- 表单 -->
   <view class="card">
     <view class="form-item">
       <text class="form-label">课程名称</text>

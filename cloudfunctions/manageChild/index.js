@@ -35,7 +35,7 @@ exports.main = async (event, context) => {
         }
       })
 
-      // 同步更新家庭组中的孩子名称
+      // 同步更新约玩圈中的孩子名称
       const groups = await db.collection('groups').where({
         'children.childId': event.childId
       }).get()
@@ -74,7 +74,7 @@ exports.main = async (event, context) => {
         await db.collection('schedules').doc(s._id).remove()
       }
 
-      // 从家庭组中移除该孩子
+      // 从约玩圈中移除该孩子
       const groupsWithChild = await db.collection('groups').where({
         'children.childId': event.childId
       }).get()

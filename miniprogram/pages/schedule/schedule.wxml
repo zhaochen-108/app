@@ -1,11 +1,12 @@
-<view class="container">
+<view class="container theme-{{theme}}">
   <!-- 孩子信息 -->
   <view class="child-header" style="border-left: 8rpx solid {{childColor}}">
     <text class="child-name">{{childName}} 的课程表</text>
+    <view class="school-time-btn" bindtap="showSchoolTimeModal">🏫 设置上学时间</view>
   </view>
 
   <!-- 星期选择 -->
-  <scroll-view class="weekday-tabs" scroll-x>
+  <view class="weekday-tabs">
     <view
       class="weekday-tab {{currentDay === index + 1 ? 'active' : ''}}"
       wx:for="{{weekdays}}"
@@ -15,7 +16,7 @@
     >
       {{item}}
     </view>
-  </scroll-view>
+  </view>
 
   <!-- 当天课程列表 -->
   <view class="schedule-list">
@@ -40,8 +41,40 @@
         <text class="course-location" wx:if="{{item.location}}">📍 {{item.location}}</text>
       </view>
       <view class="schedule-actions">
+        <text class="action-btn" catchtap="copySchedule" data-schedule="{{item}}">📋</text>
         <text class="action-btn" catchtap="editSchedule" data-schedule="{{item}}">✏️</text>
         <text class="action-btn" catchtap="deleteSchedule" data-id="{{item._id}}">🗑️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置上学时间弹窗 -->
+  <view class="modal-mask" wx:if="{{showSchoolModal}}" bindtap="hideSchoolModal">
+    <view class="modal-content" catchtap="noop">
+      <view class="modal-title">🏫 设置上学时间</view>
+      <view class="school-desc">自动为周一到周五添加"上学"课程</view>
+
+      <view class="form-item">
+        <text class="form-label">上学时间</text>
+        <picker mode="selector" range="{{timeSlots}}" value="{{schoolStartIndex}}" bindchange="onSchoolStartChange">
+          <view class="form-input picker-value">{{timeSlots[schoolStartIndex]}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">放学时间</text>
+        <picker mode="selector" range="{{timeSlots}}" value="{{schoolEndIndex}}" bindchange="onSchoolEndChange">
+          <view class="form-input picker-value">{{timeSlots[schoolEndIndex]}}</view>
+        </picker>
+      </view>
+
+      <view class="modal-buttons">
+        <button class="btn-secondary" bindtap="hideSchoolModal">取消</button>
+        <button class="btn-primary" bindtap="saveSchoolTime">一键添加</button>
+      </view>
+
+      <view class="school-tip" wx:if="{{hasSchoolTime}}">
+        <text class="tip-text">⚠️ 已有上学时间记录，将先清除旧记录再添加</text>
       </view>
     </view>
   </view>

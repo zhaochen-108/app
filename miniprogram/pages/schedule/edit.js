@@ -1,4 +1,4 @@
-const { WEEKDAYS, generateTimeSlots, showToast, timeToMinutes } = require('../../utils/util')
+const { WEEKDAYS, generateTimeSlots, showToast, timeToMinutes, parseScheduleText } = require('../../utils/util')
 
 const timeSlots = generateTimeSlots()
 
@@ -13,10 +13,13 @@ Page({
     timeSlots: timeSlots,
     dayIndex: 0,
     startIndex: 0,
-    endIndex: 2  // 默认1小时
+    endIndex: 2,  // 默认1小时
+    smartText: "",
+    theme: "blue",
   },
 
   onLoad(options) {
+    this.setData({ theme: getApp().globalData.theme || "blue" })
     const dayOfWeek = parseInt(options.dayOfWeek) || 1
     const dayIndex = dayOfWeek - 1
 
@@ -43,6 +46,47 @@ Page({
     } else {
       wx.setNavigationBarTitle({ title: '添加课程' })
     }
+  },
+
+  onSmartInput(e) {
+    this.setData({ smartText: e.detail.value })
+  },
+
+  parseSmartText() {
+    const { smartText } = this.data
+    if (!smartText.trim()) {
+      showToast("请输入课程信息")
+      return
+    }
+
+    const parsed = parseScheduleText(smartText)
+    const updates = {}
+
+    if (parsed.courseName) {
+      updates.courseName = parsed.courseName
+    }
+    if (parsed.location) {
+      updates.location = parsed.location
+    }
+    if (parsed.dayOfWeek) {
+      updates.dayIndex = parsed.dayOfWeek - 1
+    }
+    if (parsed.startTime) {
+      const si = timeSlots.indexOf(parsed.startTime)
+      if (si >= 0) updates.startIndex = si
+    }
+    if (parsed.endTime) {
+      const ei = timeSlots.indexOf(parsed.endTime)
+      if (ei >= 0) updates.endIndex = ei
+    }
+
+    if (Object.keys(updates).length === 0) {
+      showToast("未能识别，请检查格式")
+      return
+    }
+
+    this.setData(updates)
+    showToast("已识别填入")
   },
 
   onInput(e) {

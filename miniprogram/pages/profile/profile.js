@@ -9,15 +9,27 @@ Page({
     courseCount: 0,
     groupCount: 0,
     showNicknameModal: false,
-    newNickname: ''
+    newNickname: '',
+    theme: 'blue'
   },
+
+  noop() {},
 
   onShow() {
     const app = getApp()
+    this.setData({ theme: app.globalData.theme || 'blue' })
     if (app.globalData.userInfo) {
       this.setData({ userInfo: app.globalData.userInfo })
     }
     this.loadStats()
+  },
+
+  switchTheme(e) {
+    const theme = e.currentTarget.dataset.theme
+    const app = getApp()
+    app.setTheme(theme)
+    this.setData({ theme })
+    showToast(theme === 'cute' ? '🧡 甜橙可爱' : '💙 简约蓝')
   },
 
   async loadStats() {
@@ -25,17 +37,14 @@ Page({
       const app = getApp()
       const openid = app.globalData.openid
 
-      // 孩子数量
       const childRes = await db.collection('children')
-        .where({ _openid: '{openid}' })
+        .where({ _openid: getApp().globalData.openid })
         .count()
 
-      // 课程数量
       const courseRes = await db.collection('schedules')
-        .where({ _openid: '{openid}' })
+        .where({ _openid: getApp().globalData.openid })
         .count()
 
-      // 家庭组数量
       let groupCount = 0
       if (openid) {
         const groupRes = await db.collection('groups')

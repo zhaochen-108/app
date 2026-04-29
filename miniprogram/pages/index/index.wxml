@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container theme-{{theme}}">
   <!-- 用户信息区 -->
   <view class="user-header card" wx:if="{{userInfo}}">
     <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
@@ -34,7 +34,7 @@
 
   <!-- 添加孩子弹窗 -->
   <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
-    <view class="modal-content" catchtap="">
+    <view class="modal-content" catchtap="noop">
       <view class="modal-title">{{editingChild ? '编辑宝贝' : '添加宝贝'}}</view>
       <view class="form-item">
         <text class="form-label">宝贝姓名</text>

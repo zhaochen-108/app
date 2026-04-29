@@ -78,3 +78,9 @@
   flex: 1;
   margin: 0;
 }
+
+.setting-item-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}

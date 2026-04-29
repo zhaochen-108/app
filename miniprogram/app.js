@@ -7,7 +7,13 @@ App({
     wx.cloud.init({
       traceUser: true
     })
-    this.globalData = {}
+
+    // 读取主题设置
+    const theme = wx.getStorageSync('theme') || 'blue'
+    this.globalData = {
+      theme: theme
+    }
+
     this.login()
   },
 
@@ -24,8 +30,14 @@ App({
     }
   },
 
+  setTheme(theme) {
+    this.globalData.theme = theme
+    wx.setStorageSync('theme', theme)
+  },
+
   globalData: {
     userInfo: null,
-    openid: null
+    openid: null,
+    theme: 'blue'
   }
 })

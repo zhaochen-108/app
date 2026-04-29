@@ -1,7 +1,5 @@
-/* 全局样式 */
+/* ========== 全局基础样式 ========== */
 page {
-  background-color: #f5f7fa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 28rpx;
   color: #333;
   box-sizing: border-box;
@@ -11,51 +9,208 @@ page {
   padding: 20rpx 30rpx;
 }
 
-/* 通用卡片 */
-.card {
+/* ========== 简约蓝主题（默认） ========== */
+.theme-blue {
+  background-color: #f5f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.theme-blue .card {
   background: #fff;
-  border-radius: 16rpx;
+  border-radius: 12rpx;
   padding: 30rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 
-/* 通用按钮 */
-.btn-primary {
+.theme-blue .btn-primary {
   background: #4A90D9;
   color: #fff;
   border: none;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   padding: 20rpx 40rpx;
   font-size: 30rpx;
   text-align: center;
 }
 
-.btn-primary::after {
-  border: none;
-}
+.theme-blue .btn-primary::after { border: none; }
 
-.btn-secondary {
+.theme-blue .btn-secondary {
   background: #f0f5ff;
   color: #4A90D9;
   border: 2rpx solid #4A90D9;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   padding: 20rpx 40rpx;
   font-size: 30rpx;
   text-align: center;
 }
 
-.btn-danger {
+.theme-blue .btn-danger {
   background: #ff4d4f;
   color: #fff;
   border: none;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
   padding: 20rpx 40rpx;
   font-size: 30rpx;
   text-align: center;
 }
 
-/* 空状态 */
+.theme-blue .weekday-tab {
+  background: #fff;
+  color: #666;
+  border-radius: 30rpx;
+}
+
+.theme-blue .weekday-tab.active {
+  background: #4A90D9;
+  color: #fff;
+}
+
+.theme-blue .fab {
+  background: #4A90D9;
+  box-shadow: 0 6rpx 20rpx rgba(74, 144, 217, 0.4);
+}
+
+.theme-blue .modal-content {
+  background: #fff;
+  border-radius: 16rpx;
+}
+
+.theme-blue .form-input {
+  border: 2rpx solid #e8e8e8;
+  border-radius: 8rpx;
+}
+
+.theme-blue .section-title {
+  color: #333;
+}
+
+/* ========== 甜橙可爱主题 ========== */
+.theme-cute {
+  background-color: #fff8f0;
+  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.theme-cute .card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 160, 80, 0.12);
+  border: 2rpx solid #ffe8d0;
+}
+
+.theme-cute .btn-primary {
+  background: linear-gradient(135deg, #FF9A56, #FF7B3A);
+  color: #fff;
+  border: none;
+  border-radius: 40rpx;
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.theme-cute .btn-primary::after { border: none; }
+
+.theme-cute .btn-secondary {
+  background: #fff5ec;
+  color: #FF7B3A;
+  border: 2rpx solid #FFB88C;
+  border-radius: 40rpx;
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.theme-cute .btn-danger {
+  background: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 40rpx;
+  padding: 20rpx 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.theme-cute .weekday-tab {
+  background: #fff5ec;
+  color: #999;
+  border-radius: 30rpx;
+  border: 2rpx solid #ffe8d0;
+}
+
+.theme-cute .weekday-tab.active {
+  background: linear-gradient(135deg, #FF9A56, #FF7B3A);
+  color: #fff;
+  border-color: transparent;
+}
+
+.theme-cute .fab {
+  background: linear-gradient(135deg, #FF9A56, #FF7B3A);
+  box-shadow: 0 6rpx 20rpx rgba(255, 123, 58, 0.4);
+}
+
+.theme-cute .modal-content {
+  background: #fff;
+  border-radius: 28rpx;
+  border: 2rpx solid #ffe8d0;
+}
+
+.theme-cute .form-input {
+  border: 2rpx solid #ffe0c0;
+  border-radius: 16rpx;
+  background: #fffaf5;
+}
+
+.theme-cute .section-title {
+  color: #FF7B3A;
+}
+
+.theme-cute .child-color {
+  border-radius: 12rpx;
+}
+
+.theme-cute .btn-add {
+  color: #FF7B3A;
+  border-color: #FF7B3A;
+}
+
+.theme-cute .stat-num {
+  color: #FF7B3A;
+}
+
+.theme-cute .invite-code {
+  color: #FF7B3A;
+}
+
+.theme-cute .copy-btn {
+  color: #FF7B3A;
+  border-color: #FF7B3A;
+}
+
+.theme-cute .school-time-btn {
+  color: #FF7B3A;
+  border-color: #FF7B3A;
+}
+
+.theme-cute .smart-input-card {
+  background: #fff5ec;
+  border-color: #FFB88C;
+}
+
+.theme-cute .smart-label {
+  color: #FF7B3A;
+}
+
+.theme-cute .btn-smart {
+  background: linear-gradient(135deg, #FF9A56, #FF7B3A);
+}
+
+.theme-cute .action-bar .btn-primary {
+  background: linear-gradient(135deg, #FF9A56, #FF7B3A);
+}
+
+/* ========== 通用样式（不随主题变化） ========== */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -75,7 +230,6 @@ page {
   margin-bottom: 40rpx;
 }
 
-/* 弹窗遮罩 */
 .modal-mask {
   position: fixed;
   top: 0;
@@ -93,8 +247,8 @@ page {
   background: #fff;
   border-radius: 20rpx;
   padding: 40rpx;
-  width: 80%;
-  max-width: 600rpx;
+  width: 88%;
+  max-width: 680rpx;
 }
 
 .modal-title {
@@ -104,7 +258,6 @@ page {
   text-align: center;
 }
 
-/* 表单 */
 .form-item {
   margin-bottom: 30rpx;
 }
@@ -116,10 +269,59 @@ page {
 }
 
 .form-input {
+  min-height: 72rpx;
+  line-height: 40rpx;
   border: 2rpx solid #e8e8e8;
   border-radius: 10rpx;
   padding: 16rpx 20rpx;
   font-size: 28rpx;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* 主题选择器样式 */
+.theme-picker {
+  display: flex;
+  gap: 20rpx;
+  padding: 10rpx 0;
+}
+
+.theme-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  border: 4rpx solid transparent;
+}
+
+.theme-option.active {
+  border-color: #333;
+}
+
+.theme-preview {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-bottom: 12rpx;
+  border: 2rpx solid rgba(0,0,0,0.1);
+}
+
+.theme-preview.blue-preview {
+  background: linear-gradient(135deg, #4A90D9, #6BB5FF);
+}
+
+.theme-preview.cute-preview {
+  background: linear-gradient(135deg, #FF9A56, #FFB88C);
+}
+
+.theme-name {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.theme-option.active .theme-name {
+  font-weight: bold;
+  color: #333;
 }

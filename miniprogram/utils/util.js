@@ -44,6 +44,13 @@ function timeToMinutes(timeStr) {
   return h * 60 + m
 }
 
+// 分钟数转时间字符串
+function minutesToTime(minutes) {
+  const h = Math.floor(minutes / 60)
+  const m = minutes % 60
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
+}
+
 // 检查两个时间段是否重叠
 function isOverlap(start1, end1, start2, end2) {
   const s1 = timeToMinutes(start1)
@@ -58,7 +65,6 @@ function findFreeSlots(childrenSchedules, dayOfWeek) {
   const dayStart = timeToMinutes('08:00')
   const dayEnd = timeToMinutes('21:00')
 
-  // 收集当天所有课程的时间段
   const busySlots = []
   for (const child of childrenSchedules) {
     const daySchedules = child.schedules.filter(s => s.dayOfWeek === dayOfWeek)
@@ -71,11 +77,8 @@ function findFreeSlots(childrenSchedules, dayOfWeek) {
     }
   }
 
-  // 按开始时间排序
   busySlots.sort((a, b) => a.start - b.start)
 
-  // 找出所有孩子都空闲的时段
-  // 先合并所有忙碌时段
   const merged = []
   for (const slot of busySlots) {
     if (merged.length === 0 || merged[merged.length - 1].end <= slot.start) {
@@ -85,7 +88,6 @@ function findFreeSlots(childrenSchedules, dayOfWeek) {
     }
   }
 
-  // 空闲时段 = 总时间 - 忙碌时段
   const freeSlots = []
   let current = dayStart
   for (const busy of merged) {
@@ -107,13 +109,6 @@ function findFreeSlots(childrenSchedules, dayOfWeek) {
   return freeSlots
 }
 
-// 分钟数转时间字符串
-function minutesToTime(minutes) {
-  const h = Math.floor(minutes / 60)
-  const m = minutes % 60
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
-}
-
 // 显示提示
 function showToast(title, icon = 'none') {
   wx.showToast({ title, icon, duration: 2000 })
@@ -130,6 +125,105 @@ function showConfirm(content) {
   })
 }
 
+// 智能解析课程文本
+// 支持: "周三下午6:30到8点美术课 少年宫"
+// 支持: "周五下午4点半到6点。美术"
+// 支持: "周六早上9点到12点，科技活动"
+function parseScheduleText(text) {
+  var result = {}
+
+  // 解析星期
+  var dayMap = {
+    '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 7, '天': 7
+  }
+  var dayMatch = text.match(/周([一二三四五六日天])/)
+  if (dayMatch) {
+    result.dayOfWeek = dayMap[dayMatch[1]]
+  }
+
+  // 提取时间段标记（上午/下午/早上/中午/晚上）
+  var periodMap = { '上午': 'am', '早上': 'am', '中午': 'pm', '下午': 'pm', '晚上': 'pm' }
+  var periodReg = /(上午|早上|中午|下午|晚上)/
+  var periodMatch = text.match(periodReg)
+  var period = periodMatch ? periodMap[periodMatch[1]] : null
+
+  // 解析时间 - 按顺序找所有时间表达式
+  var timeNums = []
+  var fullText = text
+  var m
+
+  // 第一遍：匹配 "数字:数字" 或 "数字：数字" 格式
+  var colonTimeReg = /(\d{1,2})[:：](\d{1,2})/g
+  var colonPositions = []
+  while ((m = colonTimeReg.exec(fullText)) !== null) {
+    timeNums.push({ hour: parseInt(m[1]), min: parseInt(m[2]), pos: m.index })
+    colonPositions.push(m.index)
+  }
+
+  // 第二遍：匹配 "数字点半" "数字点数字" "数字点" 格式
+  var dotTimeReg = /(\d{1,2})点(半|\d{1,2})?/g
+  while ((m = dotTimeReg.exec(fullText)) !== null) {
+    var isDup = false
+    for (var i = 0; i < colonPositions.length; i++) {
+      if (Math.abs(m.index - colonPositions[i]) < 4) { isDup = true; break }
+    }
+    if (isDup) continue
+    var hour = parseInt(m[1])
+    var minStr = m[2]
+    var min = 0
+    if (minStr === '半') { min = 30 }
+    else if (minStr) { min = parseInt(minStr) }
+    timeNums.push({ hour: hour, min: min, pos: m.index })
+  }
+
+  // 按出现位置排序
+  timeNums.sort(function(a, b) { return a.pos - b.pos })
+
+  if (timeNums.length >= 2) {
+    var startH = timeNums[0].hour
+    var startM = timeNums[0].min
+    var endH = timeNums[1].hour
+    var endM = timeNums[1].min
+
+    if (period === 'pm') {
+      if (startH < 12) startH += 12
+      if (endH < 12) endH += 12
+    }
+    if (!period) {
+      if (startH < 8) startH += 12
+      if (endH < 8) endH += 12
+      if (endH <= startH) endH += 12
+    }
+
+    startM = startM <= 15 ? 0 : 30
+    endM = endM <= 15 ? 0 : 30
+
+    result.startTime = String(startH).padStart(2, '0') + ':' + String(startM).padStart(2, '0')
+    result.endTime = String(endH).padStart(2, '0') + ':' + String(endM).padStart(2, '0')
+  }
+
+  // 解析课程名 - 去掉所有时间相关的文字
+  var remaining = text
+  remaining = remaining.replace(/周[一二三四五六日天]/g, '')
+  remaining = remaining.replace(/(上午|早上|中午|下午|晚上)/g, '')
+  remaining = remaining.replace(/\d{1,2}[:：]\d{1,2}/g, '')
+  remaining = remaining.replace(/\d{1,2}点(半|\d{1,2})?/g, '')
+  remaining = remaining.replace(/\b\d{1,2}\b/g, '')
+  remaining = remaining.replace(/到|[-—~至]/g, '')
+  remaining = remaining.replace(/[，,。.、；;：:]/g, ' ')
+  remaining = remaining.trim()
+
+  var parts = remaining.split(/\s+/).filter(function(s) { return s.length > 0 })
+  if (parts.length > 0) {
+    result.courseName = parts[0]
+  }
+  if (parts.length > 1) {
+    result.location = parts.slice(1).join(' ')
+  }
+
+  return result
+}
+
 module.exports = {
   COLORS,
   WEEKDAYS,
@@ -141,5 +235,6 @@ module.exports = {
   isOverlap,
   findFreeSlots,
   showToast,
-  showConfirm
+  showConfirm,
+  parseScheduleText
 }

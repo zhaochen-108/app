@@ -11,10 +11,12 @@ Page({
     displaySchedules: [],
     freeSlots: [],
     hours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-    scrollHeight: 600
+    scrollHeight: 600,
+    theme: "blue"
   },
 
   onLoad(options) {
+    this.setData({ theme: getApp().globalData.theme || "blue" })
     const today = new Date().getDay()
     const currentDay = today === 0 ? 7 : today
 

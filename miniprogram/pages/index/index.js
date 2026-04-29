@@ -10,7 +10,8 @@ Page({
     childName: '',
     childColor: COLORS[0],
     colors: COLORS,
-    editingChild: null
+    editingChild: null,
+    theme: "blue"
   },
 
   onLoad() {
@@ -25,6 +26,7 @@ Page({
   },
 
   onShow() {
+    this.setData({ theme: getApp().globalData.theme || "blue" })
     this.loadChildren()
   },
 
@@ -32,7 +34,7 @@ Page({
   async loadChildren() {
     try {
       const { data } = await db.collection('children')
-        .where({ _openid: '{openid}' })
+        .where({ _openid: getApp().globalData.openid })
         .orderBy('createdAt', 'asc')
         .get()
 
@@ -59,7 +61,8 @@ Page({
       showModal: true,
       childName: '',
       childColor: getNextColor(usedColors),
-      editingChild: null
+      editingChild: null,
+    theme: "blue"
     })
   },
 
@@ -150,6 +153,8 @@ Page({
   },
 
   // 跳转到课程表
+  noop() {},
+
   goToSchedule(e) {
     const child = e.currentTarget.dataset.child
     wx.navigateTo({

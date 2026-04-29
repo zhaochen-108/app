@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container theme-{{theme}}">
   <!-- 组名 -->
   <view class="merge-header">
     <text class="merge-title">{{groupName}} - 合并视图</text>
@@ -17,7 +17,7 @@
   </view>
 
   <!-- 星期选择 -->
-  <scroll-view class="weekday-tabs" scroll-x>
+  <view class="weekday-tabs">
     <view
       class="weekday-tab {{currentDay === index + 1 ? 'active' : ''}}"
       wx:for="{{weekdays}}"
@@ -27,7 +27,7 @@
     >
       {{item}}
     </view>
-  </scroll-view>
+  </view>
 
   <!-- 时间轴视图 -->
   <scroll-view class="timeline-container" scroll-y style="height: {{scrollHeight}}px">
