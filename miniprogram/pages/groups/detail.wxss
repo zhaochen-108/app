@@ -10,31 +10,23 @@
   margin-bottom: 20rpx;
 }
 
-.invite-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10rpx;
+/* 邀请好友分享按钮 */
+.btn-share {
+  width: 80%;
+  margin: 20rpx auto 0;
+  padding: 20rpx 0;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  border: none;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(79, 172, 254, 0.3);
 }
 
-.invite-label {
-  font-size: 26rpx;
-  color: #666;
-}
-
-.invite-code {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #4A90D9;
-  letter-spacing: 8rpx;
-}
-
-.copy-btn {
-  font-size: 24rpx;
-  color: #4A90D9;
-  border: 2rpx solid #4A90D9;
-  border-radius: 8rpx;
-  padding: 4rpx 16rpx;
+.btn-share::after {
+  border: none;
 }
 
 .section {

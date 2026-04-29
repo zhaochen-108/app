@@ -8,17 +8,19 @@ Page({
     groups: [],
     myChildren: [],
     showCreateModal: false,
-    showJoinModal: false,
     groupName: '',
-    inviteCode: ''
+    theme: "blue"
   },
 
+  noop() {},
+
   onShow() {
+    this.setData({ theme: getApp().globalData.theme || "blue" })
     this.loadGroups()
     this.loadMyChildren()
   },
 
-  // 加载我的家庭组
+  // 加载我的约玩圈
   async loadGroups() {
     try {
       const app = getApp()
@@ -37,7 +39,7 @@ Page({
 
       this.setData({ groups: data })
     } catch (err) {
-      console.error('加载家庭组失败', err)
+      console.error('加载约玩圈失败', err)
     }
   },
 
@@ -45,7 +47,7 @@ Page({
   async loadMyChildren() {
     try {
       const { data } = await db.collection('children')
-        .where({ _openid: '{openid}' })
+        .where({ _openid: getApp().globalData.openid })
         .get()
 
       this.setData({
@@ -64,20 +66,12 @@ Page({
     })
   },
 
-  showJoinGroup() {
-    this.setData({ showJoinModal: true, inviteCode: '' })
-  },
-
   hideModals() {
-    this.setData({ showCreateModal: false, showJoinModal: false })
+    this.setData({ showCreateModal: false })
   },
 
   onGroupNameInput(e) {
     this.setData({ groupName: e.detail.value })
-  },
-
-  onInviteCodeInput(e) {
-    this.setData({ inviteCode: e.detail.value.toUpperCase() })
   },
 
   toggleChildSelect(e) {
@@ -88,7 +82,7 @@ Page({
     })
   },
 
-  // 创建家庭组
+  // 创建约玩圈
   async createGroup() {
     const { groupName, myChildren } = this.data
     if (!groupName.trim()) {
@@ -112,11 +106,11 @@ Page({
       showToast('创建成功')
       this.setData({ showCreateModal: false })
 
-      // 显示邀请码
+      // 提示通过分享邀请好友
       if (result && result.inviteCode) {
         wx.showModal({
-          title: '家庭组已创建',
-          content: `邀请码：${result.inviteCode}\n分享给其他宝妈即可加入`,
+          title: '约玩圈已创建',
+          content: '进入约玩圈详情，点击"邀请好友加入"按钮分享给其他宝妈吧！',
           showCancel: false
         })
       }
@@ -125,36 +119,6 @@ Page({
     } catch (err) {
       console.error('创建失败', err)
       showToast('创建失败')
-    } finally {
-      wx.hideLoading()
-    }
-  },
-
-  // 加入家庭组
-  async joinGroup() {
-    const { inviteCode } = this.data
-    if (!inviteCode || inviteCode.length !== 6) {
-      showToast('请输入6位邀请码')
-      return
-    }
-
-    try {
-      wx.showLoading({ title: '加入中...' })
-      await wx.cloud.callFunction({
-        name: 'manageGroup',
-        data: {
-          action: 'join',
-          inviteCode: inviteCode
-        }
-      })
-
-      showToast('加入成功')
-      this.setData({ showJoinModal: false })
-      this.loadGroups()
-    } catch (err) {
-      console.error('加入失败', err)
-      const msg = err.message || '加入失败'
-      showToast(msg.includes('找不到') ? '邀请码无效' : '加入失败')
     } finally {
       wx.hideLoading()
     }

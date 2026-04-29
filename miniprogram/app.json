@@ -5,13 +5,14 @@
     "pages/schedule/edit",
     "pages/groups/groups",
     "pages/groups/detail",
+    "pages/groups/join",
     "pages/merge/merge",
     "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#4A90D9",
-    "navigationBarTitleText": "宝贝课程表",
+    "navigationBarTitleText": "爱玩课程表",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
@@ -28,7 +29,7 @@
       },
       {
         "pagePath": "pages/groups/groups",
-        "text": "家庭组",
+        "text": "约玩圈",
         "iconPath": "images/tab-group.png",
         "selectedIconPath": "images/tab-group-active.png"
       },

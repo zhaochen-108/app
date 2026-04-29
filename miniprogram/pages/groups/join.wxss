@@ -1,0 +1,57 @@
+.join-card {
+  margin-top: 120rpx;
+  padding: 60rpx 40rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.join-icon {
+  font-size: 80rpx;
+  margin-bottom: 30rpx;
+}
+
+.join-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.join-group-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #4A90D9;
+  margin-bottom: 24rpx;
+}
+
+.join-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 40rpx;
+  line-height: 1.6;
+  padding: 0 20rpx;
+}
+
+.btn-join {
+  width: 80%;
+  padding: 24rpx 0;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  border: none;
+  box-shadow: 0 4rpx 16rpx rgba(79, 172, 254, 0.3);
+  margin-bottom: 24rpx;
+}
+
+.btn-join::after {
+  border: none;
+}
+
+.link-text {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 10rpx;
+}

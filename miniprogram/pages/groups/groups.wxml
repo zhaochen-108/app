@@ -1,18 +1,17 @@
-<view class="container">
+<view class="container theme-{{theme}}">
   <!-- 操作按钮 -->
   <view class="action-bar">
-    <button class="btn-primary action-btn" bindtap="showCreateGroup">创建家庭组</button>
-    <button class="btn-secondary action-btn" bindtap="showJoinGroup">加入家庭组</button>
+    <button class="btn-primary action-btn" bindtap="showCreateGroup">创建约玩圈</button>
   </view>
 
-  <!-- 我的家庭组列表 -->
+  <!-- 我的约玩圈列表 -->
   <view class="section">
-    <text class="section-title">我的家庭组</text>
+    <text class="section-title">我的约玩圈</text>
 
     <view wx:if="{{groups.length === 0}}" class="empty-state">
       <text class="icon">👨‍👩‍👧‍👦</text>
-      <text class="text">还没有加入任何家庭组</text>
-      <text class="text">创建一个或输入邀请码加入</text>
+      <text class="text">还没有加入任何约玩圈</text>
+      <text class="text">创建一个，或让朋友分享给你加入</text>
     </view>
 
     <view class="group-card card" wx:for="{{groups}}" wx:key="_id" bindtap="goToDetail" data-group="{{item}}">
@@ -24,10 +23,10 @@
     </view>
   </view>
 
-  <!-- 创建家庭组弹窗 -->
+  <!-- 创建约玩圈弹窗 -->
   <view class="modal-mask" wx:if="{{showCreateModal}}" bindtap="hideModals">
-    <view class="modal-content" catchtap="">
-      <view class="modal-title">创建家庭组</view>
+    <view class="modal-content" catchtap="noop">
+      <view class="modal-title">创建约玩圈</view>
       <view class="form-item">
         <text class="form-label">组名称</text>
         <input class="form-input" placeholder="如：周末约玩群、钢琴班家长" value="{{groupName}}" bindinput="onGroupNameInput" />
@@ -49,24 +48,11 @@
         </view>
       </view>
       <view class="modal-buttons">
-        <button class="btn-secondary" bindtap="hideModals">取消</button>
         <button class="btn-primary" bindtap="createGroup">创建</button>
+        <button class="btn-secondary" bindtap="hideModals">取消</button>
       </view>
     </view>
   </view>
 
-  <!-- 加入家庭组弹窗 -->
-  <view class="modal-mask" wx:if="{{showJoinModal}}" bindtap="hideModals">
-    <view class="modal-content" catchtap="">
-      <view class="modal-title">加入家庭组</view>
-      <view class="form-item">
-        <text class="form-label">输入邀请码</text>
-        <input class="form-input invite-input" placeholder="6位邀请码" value="{{inviteCode}}" bindinput="onInviteCodeInput" maxlength="6" />
-      </view>
-      <view class="modal-buttons">
-        <button class="btn-secondary" bindtap="hideModals">取消</button>
-        <button class="btn-primary" bindtap="joinGroup">加入</button>
-      </view>
-    </view>
-  </view>
+
 </view>

@@ -7,7 +7,8 @@ Page({
     groupId: '',
     group: { name: '', inviteCode: '', members: [], children: [] },
     isOwner: false,
-    unaddedChildren: []
+    unaddedChildren: [],
+    theme: "blue"
   },
 
   onLoad(options) {
@@ -15,7 +16,17 @@ Page({
   },
 
   onShow() {
+    this.setData({ theme: getApp().globalData.theme || "blue" })
     this.loadGroupDetail()
+  },
+
+  // 微信分享 — 将邀请码嵌入分享链接
+  onShareAppMessage() {
+    const group = this.data.group
+    return {
+      title: `来加入「${group.name}」约玩圈，一起安排孩子的课余时间吧！`,
+      path: `/pages/groups/join?inviteCode=${group.inviteCode}&groupName=${encodeURIComponent(group.name)}`
+    }
   },
 
   async loadGroupDetail() {
@@ -37,14 +48,6 @@ Page({
       console.error('加载组详情失败', err)
       showToast('加载失败')
     }
-  },
-
-  // 复制邀请码
-  copyInviteCode() {
-    wx.setClipboardData({
-      data: this.data.group.inviteCode,
-      success: () => showToast('邀请码已复制')
-    })
   },
 
   // 添加孩子到组
@@ -77,9 +80,9 @@ Page({
     })
   },
 
-  // 退出家庭组
+  // 退出约玩圈
   async leaveGroup() {
-    const confirmed = await showConfirm('确定退出该家庭组吗？')
+    const confirmed = await showConfirm('确定退出该约玩圈吗？')
     if (!confirmed) return
 
     try {
@@ -95,9 +98,9 @@ Page({
     }
   },
 
-  // 解散家庭组
+  // 解散约玩圈
   async deleteGroup() {
-    const confirmed = await showConfirm('确定解散该家庭组吗？所有成员将被移除。')
+    const confirmed = await showConfirm('确定解散该约玩圈吗？所有成员将被移除。')
     if (!confirmed) return
 
     try {

@@ -1,12 +1,8 @@
-<view class="container">
+<view class="container theme-{{theme}}">
   <!-- 组信息 -->
   <view class="card group-header">
     <text class="group-name">{{group.name}}</text>
-    <view class="invite-section">
-      <text class="invite-label">邀请码：</text>
-      <text class="invite-code">{{group.inviteCode}}</text>
-      <text class="copy-btn" bindtap="copyInviteCode">复制</text>
-    </view>
+    <button class="btn-share" open-type="share">📤 邀请好友加入</button>
   </view>
 
   <!-- 成员列表 -->
@@ -45,7 +41,7 @@
   <!-- 操作按钮 -->
   <view class="action-section">
     <button class="btn-primary" bindtap="goToMergeView">📊 查看合并课程表</button>
-    <button class="btn-danger leave-btn" bindtap="leaveGroup" wx:if="{{!isOwner}}">退出家庭组</button>
-    <button class="btn-danger leave-btn" bindtap="deleteGroup" wx:if="{{isOwner}}">解散家庭组</button>
+    <button class="btn-danger leave-btn" bindtap="leaveGroup" wx:if="{{!isOwner}}">退出约玩圈</button>
+    <button class="btn-danger leave-btn" bindtap="deleteGroup" wx:if="{{isOwner}}">解散约玩圈</button>
   </view>
 </view>

@@ -77,11 +77,3 @@
   color: #4A90D9;
   font-weight: bold;
 }
-
-/* 邀请码输入 */
-.invite-input {
-  text-align: center;
-  font-size: 40rpx;
-  letter-spacing: 16rpx;
-  font-weight: bold;
-}
