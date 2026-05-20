@@ -17,6 +17,7 @@ Page({
 
   onLoad(options) {
     this.setData({ theme: getApp().globalData.theme || "blue" })
+    getApp().applyThemeColors()
     const today = new Date().getDay()
     const currentDay = today === 0 ? 7 : today
 

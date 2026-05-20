@@ -27,7 +27,13 @@ Page({
 
   onShow() {
     this.setData({ theme: getApp().globalData.theme || "blue" })
-    this.loadChildren()
+    getApp().applyThemeColors()
+    const app = getApp()
+    if (app.globalData.openid) {
+      this.loadChildren()
+    } else {
+      app.userInfoReadyCallback = () => this.loadChildren()
+    }
   },
 
   // 加载孩子列表

@@ -18,6 +18,7 @@ Page({
   onShow() {
     const app = getApp()
     this.setData({ theme: app.globalData.theme || 'blue' })
+    app.applyThemeColors()
     if (app.globalData.userInfo) {
       this.setData({ userInfo: app.globalData.userInfo })
     }

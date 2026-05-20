@@ -17,6 +17,7 @@ Page({
 
   onShow() {
     this.setData({ theme: getApp().globalData.theme || "blue" })
+    getApp().applyThemeColors()
     this.loadGroupDetail()
   },
 

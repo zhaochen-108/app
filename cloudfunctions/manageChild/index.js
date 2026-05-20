@@ -65,25 +65,34 @@ exports.main = async (event, context) => {
       // 删除孩子
       await db.collection('children').doc(event.childId).remove()
 
-      // 删除该孩子的所有课程
-      const schedules = await db.collection('schedules')
-        .where({ childId: event.childId })
-        .get()
-
-      for (const s of schedules.data) {
-        await db.collection('schedules').doc(s._id).remove()
+      // 删除该孩子的所有课程（分页处理，每次最多100条）
+      const BATCH = 100
+      let hasMore = true
+      while (hasMore) {
+        const schedules = await db.collection('schedules')
+          .where({ childId: event.childId })
+          .limit(BATCH)
+          .get()
+        for (const s of schedules.data) {
+          await db.collection('schedules').doc(s._id).remove()
+        }
+        hasMore = schedules.data.length >= BATCH
       }
 
-      // 从约玩圈中移除该孩子
-      const groupsWithChild = await db.collection('groups').where({
-        'children.childId': event.childId
-      }).get()
+      // 从约玩圈中移除该孩子（分页处理）
+      let hasMoreGroups = true
+      while (hasMoreGroups) {
+        const groupsWithChild = await db.collection('groups').where({
+          'children.childId': event.childId
+        }).limit(BATCH).get()
 
-      for (const group of groupsWithChild.data) {
-        const updatedChildren = group.children.filter(c => c.childId !== event.childId)
-        await db.collection('groups').doc(group._id).update({
-          data: { children: updatedChildren }
-        })
+        for (const group of groupsWithChild.data) {
+          const updatedChildren = group.children.filter(c => c.childId !== event.childId)
+          await db.collection('groups').doc(group._id).update({
+            data: { children: updatedChildren }
+          })
+        }
+        hasMoreGroups = groupsWithChild.data.length >= BATCH
       }
 
       return { success: true }

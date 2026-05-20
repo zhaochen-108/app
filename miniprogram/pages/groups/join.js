@@ -11,6 +11,7 @@ Page({
 
   onLoad(options) {
     this.setData({ theme: getApp().globalData.theme || 'blue' })
+    getApp().applyThemeColors()
 
     const { inviteCode, groupName } = options
     if (!inviteCode) {

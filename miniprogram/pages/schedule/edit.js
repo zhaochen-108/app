@@ -20,6 +20,7 @@ Page({
 
   onLoad(options) {
     this.setData({ theme: getApp().globalData.theme || "blue" })
+    getApp().applyThemeColors()
     const dayOfWeek = parseInt(options.dayOfWeek) || 1
     const dayIndex = dayOfWeek - 1
 
@@ -52,14 +53,33 @@ Page({
     this.setData({ smartText: e.detail.value })
   },
 
-  parseSmartText() {
+  async parseSmartText() {
     const { smartText } = this.data
     if (!smartText.trim()) {
       showToast("请输入课程信息")
       return
     }
 
-    const parsed = parseScheduleText(smartText)
+    wx.showLoading({ title: '识别中...' })
+
+    let parsed = null
+    try {
+      const { result } = await wx.cloud.callFunction({
+        name: 'manageSchedule',
+        data: { action: 'parseText', text: smartText }
+      })
+      if (result.success && result.parsed) {
+        parsed = result.parsed
+      }
+    } catch (err) {
+      console.warn('AI 解析失败，使用本地正则兜底', err)
+    }
+    wx.hideLoading()
+
+    if (!parsed) {
+      parsed = parseScheduleText(smartText)
+    }
+
     const updates = {}
 
     if (parsed.courseName) {

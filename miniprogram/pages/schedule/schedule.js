@@ -44,6 +44,7 @@ Page({
 
   onShow() {
     this.setData({ theme: getApp().globalData.theme || "blue" })
+    getApp().applyThemeColors()
     this.loadSchedules()
   },
 
@@ -177,18 +178,7 @@ Page({
     try {
       wx.showLoading({ title: '设置中...' })
 
-      // 先删除旧的上学记录
-      if (hasSchoolTime) {
-        const oldRecords = this.data.allSchedules.filter(s => s.courseName === '上学')
-        for (const record of oldRecords) {
-          await wx.cloud.callFunction({
-            name: 'manageSchedule',
-            data: { action: 'delete', scheduleId: record._id }
-          })
-        }
-      }
-
-      // 给周一到周五批量添加
+      // 先添加新的上学记录
       for (let day = 1; day <= 5; day++) {
         await wx.cloud.callFunction({
           name: 'manageSchedule',
@@ -202,6 +192,17 @@ Page({
             location: ''
           }
         })
+      }
+
+      // 新记录全部添加成功后，再删除旧的上学记录
+      if (hasSchoolTime) {
+        const oldRecords = this.data.allSchedules.filter(s => s.courseName === '上学')
+        for (const record of oldRecords) {
+          await wx.cloud.callFunction({
+            name: 'manageSchedule',
+            data: { action: 'delete', scheduleId: record._id }
+          })
+        }
       }
 
       showToast('上学时间已设置')

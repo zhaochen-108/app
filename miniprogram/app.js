@@ -13,6 +13,7 @@ App({
     this.globalData = {
       theme: theme
     }
+    this.applyThemeColors(theme)
 
     this.login()
   },
@@ -33,6 +34,22 @@ App({
   setTheme(theme) {
     this.globalData.theme = theme
     wx.setStorageSync('theme', theme)
+    this.applyThemeColors(theme)
+  },
+
+  applyThemeColors(theme) {
+    if (!theme) theme = this.globalData.theme
+    const colors = {
+      blue: '#4A90D9',
+      cute: '#FF7B3A'
+    }
+    const c = colors[theme] || colors.blue
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: c,
+      animation: { duration: 300, timingFunc: 'easeIn' }
+    })
+    wx.setTabBarStyle({ selectedColor: c })
   },
 
   globalData: {

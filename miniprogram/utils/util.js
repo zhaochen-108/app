@@ -9,12 +9,13 @@ const COLORS = [
 // 星期映射
 const WEEKDAYS = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
 
-// 生成时间段列表（半小时粒度，8:00-21:00）
+// 生成时间段列表（5分钟粒度，8:00-21:00）
 function generateTimeSlots() {
   const slots = []
   for (let h = 8; h < 21; h++) {
-    slots.push(`${String(h).padStart(2, '0')}:00`)
-    slots.push(`${String(h).padStart(2, '0')}:30`)
+    for (let m = 0; m < 60; m += 5) {
+      slots.push(`${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`)
+    }
   }
   slots.push('21:00')
   return slots
@@ -161,7 +162,7 @@ function parseScheduleText(text) {
   }
 
   // 第二遍：匹配 "数字点半" "数字点数字" "数字点" 格式
-  var dotTimeReg = /(\d{1,2})点(半|\d{1,2})?/g
+  var dotTimeReg = /(\d{1,2})点(半|\d{1,2})分?/g
   while ((m = dotTimeReg.exec(fullText)) !== null) {
     var isDup = false
     for (var i = 0; i < colonPositions.length; i++) {
@@ -195,8 +196,8 @@ function parseScheduleText(text) {
       if (endH <= startH) endH += 12
     }
 
-    startM = startM <= 15 ? 0 : 30
-    endM = endM <= 15 ? 0 : 30
+    startM = Math.round(startM / 15) * 15
+    endM = Math.round(endM / 15) * 15
 
     result.startTime = String(startH).padStart(2, '0') + ':' + String(startM).padStart(2, '0')
     result.endTime = String(endH).padStart(2, '0') + ':' + String(endM).padStart(2, '0')
@@ -207,7 +208,7 @@ function parseScheduleText(text) {
   remaining = remaining.replace(/周[一二三四五六日天]/g, '')
   remaining = remaining.replace(/(上午|早上|中午|下午|晚上)/g, '')
   remaining = remaining.replace(/\d{1,2}[:：]\d{1,2}/g, '')
-  remaining = remaining.replace(/\d{1,2}点(半|\d{1,2})?/g, '')
+  remaining = remaining.replace(/\d{1,2}点(半|\d{1,2})分?/g, '')
   remaining = remaining.replace(/\b\d{1,2}\b/g, '')
   remaining = remaining.replace(/到|[-—~至]/g, '')
   remaining = remaining.replace(/[，,。.、；;：:]/g, ' ')

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
     "pages/schedule/schedule",
     "pages/schedule/edit",
@@ -12,7 +13,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#4A90D9",
-    "navigationBarTitleText": "爱玩课程表",
+    "navigationBarTitleText": "爱玩工程师",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
@@ -21,6 +22,12 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
       {
         "pagePath": "pages/index/index",
         "text": "课程表",

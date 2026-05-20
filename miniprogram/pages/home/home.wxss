@@ -1,0 +1,102 @@
+.container {
+  min-height: 100vh;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+/* Brand */
+.brand {
+  text-align: center;
+  padding: 60rpx 0 50rpx;
+}
+
+.theme-blue .brand-title {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.theme-cute .brand-title {
+  font-size: 52rpx;
+  font-weight: bold;
+  color: #FF7B3A;
+}
+
+.brand-subtitle {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+/* Feature Grid */
+.feature-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+}
+
+.feature-card {
+  width: calc(50% - 12rpx);
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 36rpx 24rpx;
+  text-align: center;
+  box-sizing: border-box;
+  transition: transform 0.1s;
+}
+
+.feature-card:active {
+  transform: scale(0.97);
+}
+
+.theme-blue .feature-card {
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.theme-cute .feature-card {
+  border: 2rpx solid #ffe8d0;
+  box-shadow: 0 4rpx 16rpx rgba(255, 123, 58, 0.08);
+}
+
+.feature-card.disabled {
+  opacity: 0.4;
+}
+
+/* Feature Icon */
+.feature-icon {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 auto 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon image {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.feature-icon-placeholder {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #f0f0f0;
+  color: #ccc;
+  font-size: 36rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+/* Feature Text */
+.feature-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: #999;
+}
