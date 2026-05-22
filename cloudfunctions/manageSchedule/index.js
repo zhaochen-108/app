@@ -3,17 +3,17 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
 const db = cloud.database()
 
 async function callAI(text) {
-  const apiKey = process.env.DOUBAO_API_KEY
-  if (!apiKey) throw new Error('未配置 DOUBAO_API_KEY')
+  const apiKey = process.env.AI_API_KEY
+  if (!apiKey) throw new Error('未配置 AI_API_KEY')
 
-  const resp = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+  const resp = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + apiKey
     },
     body: JSON.stringify({
-      model: process.env.DOUBAO_MODEL || 'doubao-1-5-lite-32k-250115',
+      model: process.env.AI_MODEL || 'glm-4-flash',
       messages: [
         {
           role: 'system',
