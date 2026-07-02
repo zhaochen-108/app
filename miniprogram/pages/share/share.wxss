@@ -60,7 +60,7 @@
   font-size: 36rpx;
   font-weight: bold;
   border-radius: 16rpx;
-  padding: 30rpx 0;
+  padding: 36rpx 60rpx;
   border: none;
   line-height: 1.5;
 }
