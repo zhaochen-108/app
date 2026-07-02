@@ -29,7 +29,7 @@
 }
 
 .weekday-tab.active {
-  background: #4A90D9;
+  background: #FF7B3A;
   color: #fff;
 }
 
@@ -96,7 +96,7 @@
   bottom: 60rpx;
   width: 100rpx;
   height: 100rpx;
-  background: #4A90D9;
+  background: #FF7B3A;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -117,13 +117,18 @@
   align-items: center;
 }
 
-.school-time-btn {
+.header-actions {
+  display: flex;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.school-time-btn, .share-week-btn {
   font-size: 24rpx;
-  color: #4A90D9;
-  border: 2rpx solid #4A90D9;
+  color: #FF7B3A;
+  border: 2rpx solid #FF7B3A;
   border-radius: 20rpx;
   padding: 6rpx 16rpx;
-  flex-shrink: 0;
 }
 
 /* 上学时间弹窗 */

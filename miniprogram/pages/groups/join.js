@@ -6,11 +6,11 @@ Page({
     inviteCode: '',
     status: 'loading', // loading | confirming | joining | success | error
     errorMsg: '',
-    theme: 'blue'
+    theme: 'cute'
   },
 
   onLoad(options) {
-    this.setData({ theme: getApp().globalData.theme || 'blue' })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
 
     const { inviteCode, groupName } = options

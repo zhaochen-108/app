@@ -15,11 +15,11 @@ Page({
     startIndex: 0,
     endIndex: 2,  // 默认1小时
     smartText: "",
-    theme: "blue",
+    theme: 'cute',
   },
 
   onLoad(options) {
-    this.setData({ theme: getApp().globalData.theme || "blue" })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
     const dayOfWeek = parseInt(options.dayOfWeek) || 1
     const dayIndex = dayOfWeek - 1

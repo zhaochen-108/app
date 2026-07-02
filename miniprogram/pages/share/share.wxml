@@ -1,0 +1,22 @@
+<view class="container theme-{{theme}}">
+  <!-- 隐藏的 Canvas 用于绘制 -->
+  <canvas type="2d" id="shareCanvas" class="hidden-canvas"></canvas>
+
+  <!-- 加载状态 -->
+  <view class="loading-area" wx:if="{{generating}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在生成课程表图片...</text>
+  </view>
+
+  <!-- 预览区域 -->
+  <view class="preview-area" wx:if="{{previewImageUrl && !generating}}">
+    <image class="preview-image" src="{{previewImageUrl}}" mode="widthFix" show-menu-by-longpress="true"></image>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons" wx:if="{{previewImageUrl && !generating}}">
+    <button class="btn-share" open-type="share">📤 分享给好友</button>
+    <button class="btn-save" bindtap="saveToAlbum">💾 保存到相册</button>
+    <view class="btn-back" bindtap="goBack">返回课程表</view>
+  </view>
+</view>

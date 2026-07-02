@@ -10,14 +10,14 @@ Page({
     groupCount: 0,
     showNicknameModal: false,
     newNickname: '',
-    theme: 'blue'
+    theme: 'cute'
   },
 
   noop() {},
 
   onShow() {
     const app = getApp()
-    this.setData({ theme: app.globalData.theme || 'blue' })
+    this.setData({ theme: app.globalData.theme || 'cute' })
     app.applyThemeColors()
     if (app.globalData.userInfo) {
       this.setData({ userInfo: app.globalData.userInfo })
@@ -30,7 +30,7 @@ Page({
     const app = getApp()
     app.setTheme(theme)
     this.setData({ theme })
-    showToast(theme === 'cute' ? '🧡 甜橙可爱' : '💙 简约蓝')
+    showToast(theme === 'cute' ? '🧡 甜橙可爱' : '💙 简约蓝（备选）')
   },
 
   async loadStats() {

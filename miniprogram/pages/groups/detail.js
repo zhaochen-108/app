@@ -8,7 +8,7 @@ Page({
     group: { name: '', inviteCode: '', members: [], children: [] },
     isOwner: false,
     unaddedChildren: [],
-    theme: "blue"
+    theme: 'cute'
   },
 
   onLoad(options) {
@@ -16,7 +16,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: getApp().globalData.theme || "blue" })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
     this.loadGroupDetail()
   },

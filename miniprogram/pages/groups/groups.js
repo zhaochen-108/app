@@ -9,13 +9,13 @@ Page({
     myChildren: [],
     showCreateModal: false,
     groupName: '',
-    theme: "blue"
+    theme: 'cute'
   },
 
   noop() {},
 
   onShow() {
-    this.setData({ theme: getApp().globalData.theme || "blue" })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
     this.loadGroups()
     this.loadMyChildren()

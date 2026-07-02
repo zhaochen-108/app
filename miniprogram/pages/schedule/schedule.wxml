@@ -2,7 +2,10 @@
   <!-- 孩子信息 -->
   <view class="child-header" style="border-left: 8rpx solid {{childColor}}">
     <text class="child-name">{{childName}} 的课程表</text>
-    <view class="school-time-btn" bindtap="showSchoolTimeModal">🏫 设置上学时间</view>
+    <view class="header-actions">
+      <view class="school-time-btn" bindtap="showSchoolTimeModal">🏫 上学时间</view>
+      <view class="share-week-btn" bindtap="shareWeeklySchedule">📤 分享周课表</view>
+    </view>
   </view>
 
   <!-- 星期选择 -->

@@ -36,7 +36,7 @@
 .stat-num {
   font-size: 44rpx;
   font-weight: bold;
-  color: #4A90D9;
+  color: #FF7B3A;
 }
 
 .stat-label {

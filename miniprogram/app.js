@@ -9,7 +9,7 @@ App({
     })
 
     // 读取主题设置
-    const theme = wx.getStorageSync('theme') || 'blue'
+    const theme = wx.getStorageSync('theme') || 'cute'
     this.globalData = {
       theme: theme
     }
@@ -43,7 +43,7 @@ App({
       blue: '#4A90D9',
       cute: '#FF7B3A'
     }
-    const c = colors[theme] || colors.blue
+    const c = colors[theme] || colors.cute
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: c,
@@ -55,6 +55,6 @@ App({
   globalData: {
     userInfo: null,
     openid: null,
-    theme: 'blue'
+    theme: 'cute'
   }
 })

@@ -100,7 +100,7 @@
 }
 
 .tag-add {
-  color: #4A90D9;
+  color: #FF7B3A;
   font-size: 24rpx;
   margin-left: 8rpx;
 }

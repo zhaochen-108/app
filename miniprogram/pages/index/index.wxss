@@ -34,10 +34,10 @@
 }
 
 .btn-add {
-  color: #4A90D9;
+  color: #FF7B3A;
   font-size: 28rpx;
   padding: 8rpx 20rpx;
-  border: 2rpx solid #4A90D9;
+  border: 2rpx solid #FF7B3A;
   border-radius: 30rpx;
 }
 

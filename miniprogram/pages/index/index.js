@@ -11,7 +11,7 @@ Page({
     childColor: COLORS[0],
     colors: COLORS,
     editingChild: null,
-    theme: "blue"
+    theme: 'cute'
   },
 
   onLoad() {
@@ -26,7 +26,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: getApp().globalData.theme || "blue" })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
     const app = getApp()
     if (app.globalData.openid) {
@@ -68,7 +68,7 @@ Page({
       childName: '',
       childColor: getNextColor(usedColors),
       editingChild: null,
-    theme: "blue"
+    theme: 'cute'
     })
   },
 

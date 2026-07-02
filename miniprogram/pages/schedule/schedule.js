@@ -18,7 +18,7 @@ Page({
     schoolStartIndex: 0,   // 默认 08:00
     schoolEndIndex: 10,    // 默认 15:00 (index 14 = 15:00... let me calc)
     hasSchoolTime: false,
-    theme: "blue"
+    theme: 'cute'
   },
 
   onLoad(options) {
@@ -43,12 +43,20 @@ Page({
   },
 
   onShow() {
-    this.setData({ theme: getApp().globalData.theme || "blue" })
+    this.setData({ theme: getApp().globalData.theme || 'cute' })
     getApp().applyThemeColors()
     this.loadSchedules()
   },
 
   noop() {},
+
+  // 分享周课表
+  shareWeeklySchedule() {
+    const { childId, childName, childColor } = this.data
+    wx.navigateTo({
+      url: `/pages/share/share?childId=${childId}&childName=${encodeURIComponent(childName)}&childColor=${encodeURIComponent(childColor)}`
+    })
+  },
 
   // 加载课程表
   async loadSchedules() {

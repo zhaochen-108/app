@@ -61,7 +61,7 @@
 }
 
 .child-select-item.selected {
-  border-color: #4A90D9;
+  border-color: #FF7B3A;
   background: #f0f5ff;
 }
 
@@ -74,6 +74,6 @@
 
 .check-mark {
   margin-left: auto;
-  color: #4A90D9;
+  color: #FF7B3A;
   font-weight: bold;
 }

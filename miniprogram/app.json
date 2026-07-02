@@ -8,17 +8,19 @@
     "pages/groups/detail",
     "pages/groups/join",
     "pages/merge/merge",
+    "pages/test/test",
+    "pages/share/share",
     "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#4A90D9",
+    "navigationBarBackgroundColor": "#FF7B3A",
     "navigationBarTitleText": "爱玩工程师",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#4A90D9",
+    "selectedColor": "#FF7B3A",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

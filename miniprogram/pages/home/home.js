@@ -1,6 +1,6 @@
 Page({
   data: {
-    theme: 'blue',
+    theme: 'cute',
     features: [
       {
         id: 'schedule',
@@ -21,7 +21,7 @@ Page({
 
   onShow() {
     const app = getApp()
-    this.setData({ theme: app.globalData.theme || 'blue' })
+    this.setData({ theme: app.globalData.theme || 'cute' })
     app.applyThemeColors()
   },
 

@@ -61,7 +61,7 @@
 }
 
 .weekday-tab.active {
-  background: #4A90D9;
+  background: #FF7B3A;
   color: #fff;
 }
 
