@@ -46,6 +46,7 @@ Page({
       childName: decodeURIComponent(options.childName || ''),
       childColor: decodeURIComponent(options.childColor || '#4A90D9')
     })
+    this.loadQRCode()
     this.loadSchedulesAndGenerate()
   },
 
@@ -92,7 +93,7 @@ Page({
           const dpr = wx.getSystemInfoSync().pixelRatio
 
           const W = 1000
-          const H = 920
+          const H = 1080
           canvas.width = W * dpr
           canvas.height = H * dpr
           ctx.scale(dpr, dpr)
@@ -129,7 +130,7 @@ Page({
     const HEADER_H = 80
     const DAY_HEADER_H = 45
     const TIME_LABEL_W = 50
-    const FOOTER_H = 40
+    const FOOTER_H = 140
     const COL_GAP = 2
 
     const gridLeft = PADDING + TIME_LABEL_W
@@ -279,12 +280,80 @@ Page({
       })
     }
 
-    // ---- 底部品牌 ----
-    ctx.fillStyle = '#cccccc'
-    ctx.font = '13px sans-serif'
+    // ---- 底部品牌区 + 小程序码 ----
+    const footerTop = gridTop + gridHeight + 10
+    const footerW = W - PADDING * 2
+
+    // 品牌区背景
+    ctx.fillStyle = '#fafafa'
+    roundRect(ctx, PADDING, footerTop, footerW, FOOTER_H, 12)
+    ctx.fill()
+
+    // 左侧品牌文字
+    const brandLeft = PADDING + 30
+    ctx.fillStyle = '#FF7B3A'
+    ctx.font = 'bold 26px sans-serif'
+    ctx.textAlign = 'left'
+    ctx.textBaseline = 'top'
+    ctx.fillText('爱玩工程师', brandLeft, footerTop + 25)
+
+    ctx.fillStyle = '#999999'
+    ctx.font = '16px sans-serif'
+    ctx.fillText('轻松管理孩子的课程表', brandLeft, footerTop + 62)
+
+    ctx.fillStyle = '#bbbbbb'
+    ctx.font = '14px sans-serif'
+    ctx.fillText('长按保存图片 · 扫码体验小程序', brandLeft, footerTop + 92)
+
+    // 右侧小程序码占位
+    const qrSize = 90
+    const qrX = W - PADDING - 30 - qrSize
+    const qrY = footerTop + (FOOTER_H - qrSize) / 2
+
+    // 二维码白色底
+    ctx.fillStyle = '#ffffff'
+    roundRect(ctx, qrX - 4, qrY - 4, qrSize + 8, qrSize + 8, 8)
+    ctx.fill()
+    ctx.strokeStyle = '#e0e0e0'
+    ctx.lineWidth = 1
+    roundRect(ctx, qrX - 4, qrY - 4, qrSize + 8, qrSize + 8, 8)
+    ctx.stroke()
+
+    // 如果有小程序码图片，绘制它
+    if (this._qrCodeImage) {
+      try {
+        ctx.drawImage(this._qrCodeImage, qrX, qrY, qrSize, qrSize)
+      } catch (e) {
+        this._drawQRPlaceholder(ctx, qrX, qrY, qrSize)
+      }
+    } else {
+      this._drawQRPlaceholder(ctx, qrX, qrY, qrSize)
+    }
+  },
+
+  // 绘制小程序码占位（无图片时显示）
+  _drawQRPlaceholder(ctx, x, y, size) {
+    ctx.fillStyle = '#e8e8e8'
+    ctx.fillRect(x, y, size, size)
+
+    ctx.fillStyle = '#aaaaaa'
+    ctx.font = '12px sans-serif'
     ctx.textAlign = 'center'
-    ctx.textBaseline = 'bottom'
-    ctx.fillText('由 爱玩工程师 生成', W / 2, H - 12)
+    ctx.textBaseline = 'middle'
+    ctx.fillText('小程序码', x + size / 2, y + size / 2 - 8)
+    ctx.fillText('(待配置)', x + size / 2, y + size / 2 + 10)
+  },
+
+  // 尝试加载小程序码图片
+  loadQRCode() {
+    const img = wx.createImage()
+    img.onload = () => {
+      this._qrCodeImage = img
+    }
+    img.onerror = () => {
+      this._qrCodeImage = null
+    }
+    img.src = '/images/qrcode.png'
   },
 
   // 保存到相册
