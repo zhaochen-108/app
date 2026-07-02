@@ -15,7 +15,6 @@
 
   <!-- 操作按钮 -->
   <view class="action-buttons" wx:if="{{previewImageUrl && !generating}}">
-    <button class="btn-share" open-type="share">📤 分享给好友</button>
     <button class="btn-save" bindtap="saveToAlbum">💾 保存到相册</button>
     <view class="btn-back" bindtap="goBack">返回课程表</view>
   </view>

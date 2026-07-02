@@ -287,15 +287,6 @@ Page({
     ctx.fillText('由 爱玩工程师 生成', W / 2, H - 12)
   },
 
-  // 微信分享
-  onShareAppMessage() {
-    return {
-      title: this.data.childName + ' 的每周课程表',
-      path: '/pages/index/index',
-      imageUrl: this.data.previewImageUrl
-    }
-  },
-
   // 保存到相册
   async saveToAlbum() {
     try {
