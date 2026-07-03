@@ -346,14 +346,18 @@ Page({
 
   // 尝试加载小程序码图片
   loadQRCode() {
-    const img = wx.createImage()
-    img.onload = () => {
-      this._qrCodeImage = img
-    }
-    img.onerror = () => {
+    try {
+      const img = wx.createImage()
+      img.onload = () => {
+        this._qrCodeImage = img
+      }
+      img.onerror = () => {
+        this._qrCodeImage = null
+      }
+      img.src = '/images/qrcode.jpg'
+    } catch (e) {
       this._qrCodeImage = null
     }
-    img.src = '/images/qrcode.png'
   },
 
   // 保存到相册
