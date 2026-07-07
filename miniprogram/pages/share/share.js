@@ -46,8 +46,55 @@ Page({
       childName: decodeURIComponent(options.childName || ''),
       childColor: decodeURIComponent(options.childColor || '#4A90D9')
     })
-    this.loadQRCode()
-    this.loadSchedulesAndGenerate()
+    this.loadShareContent()
+  },
+
+  async loadShareContent() {
+    this.setData({ generating: true })
+    try {
+      // 先获取 canvas 节点
+      const canvas = await this._getCanvas()
+      // 并行：用 canvas.createImage 加载图片 + 加载课程数据
+      await Promise.all([
+        this.loadQRCode(canvas),
+        this.loadSchedulesData()
+      ])
+      // 用已获取的 canvas 绘制
+      await this.drawImage(canvas)
+    } catch (err) {
+      console.error('生成分享图失败', err)
+      showToast('生成失败，请重试')
+    } finally {
+      this.setData({ generating: false })
+    }
+  },
+
+  _getCanvas() {
+    return new Promise((resolve, reject) => {
+      const query = wx.createSelectorQuery()
+      query.select('#shareCanvas')
+        .fields({ node: true, size: true })
+        .exec((res) => {
+          if (!res || !res[0] || !res[0].node) {
+            reject(new Error('canvas not found'))
+            return
+          }
+          resolve(res[0].node)
+        })
+    })
+  },
+
+  async loadSchedulesData() {
+    try {
+      const { data } = await db.collection('schedules')
+        .where({ childId: this.data.childId })
+        .orderBy('startTime', 'asc')
+        .get()
+      this.setData({ allSchedules: data })
+    } catch (err) {
+      console.error('加载课程表失败', err)
+      showToast('加载失败，请重试')
+    }
   },
 
   onShow() {
@@ -59,66 +106,37 @@ Page({
     wx.navigateBack()
   },
 
-  async loadSchedulesAndGenerate() {
-    try {
-      this.setData({ generating: true })
-      const { data } = await db.collection('schedules')
-        .where({ childId: this.data.childId })
-        .orderBy('startTime', 'asc')
-        .get()
-      this.setData({ allSchedules: data })
-      await this.generateImage()
-    } catch (err) {
-      console.error('加载课程表失败', err)
-      showToast('加载失败，请重试')
-    } finally {
-      this.setData({ generating: false })
-    }
-  },
-
-  generateImage() {
+  drawImage(canvas) {
     return new Promise((resolve, reject) => {
-      const query = wx.createSelectorQuery()
-      query.select('#shareCanvas')
-        .fields({ node: true, size: true })
-        .exec((res) => {
-          if (!res || !res[0] || !res[0].node) {
-            showToast('生成失败，请重试')
-            reject(new Error('canvas node not found'))
-            return
-          }
+      const ctx = canvas.getContext('2d')
+      const dpr = wx.getSystemInfoSync().pixelRatio
 
-          const canvas = res[0].node
-          const ctx = canvas.getContext('2d')
-          const dpr = wx.getSystemInfoSync().pixelRatio
+      const W = 1000
+      const H = 1080
+      canvas.width = W * dpr
+      canvas.height = H * dpr
+      ctx.scale(dpr, dpr)
 
-          const W = 1000
-          const H = 1080
-          canvas.width = W * dpr
-          canvas.height = H * dpr
-          ctx.scale(dpr, dpr)
+      this.drawWeeklySchedule(ctx, W, H)
 
-          this.drawWeeklySchedule(ctx, W, H)
-
-          wx.canvasToTempFilePath({
-            canvas,
-            x: 0,
-            y: 0,
-            width: W * dpr,
-            height: H * dpr,
-            destWidth: W * dpr,
-            destHeight: H * dpr,
-            success: (res) => {
-              this.setData({ previewImageUrl: res.tempFilePath })
-              resolve(res.tempFilePath)
-            },
-            fail: (err) => {
-              console.error('导出图片失败', err)
-              showToast('生成图片失败')
-              reject(err)
-            }
-          })
-        })
+      wx.canvasToTempFilePath({
+        canvas,
+        x: 0,
+        y: 0,
+        width: W * dpr,
+        height: H * dpr,
+        destWidth: W * dpr,
+        destHeight: H * dpr,
+        success: (res) => {
+          this.setData({ previewImageUrl: res.tempFilePath })
+          resolve(res.tempFilePath)
+        },
+        fail: (err) => {
+          console.error('导出图片失败', err)
+          showToast('生成图片失败')
+          reject(err)
+        }
+      })
     })
   },
 
@@ -344,17 +362,22 @@ Page({
     ctx.fillText('(待配置)', x + size / 2, y + size / 2 + 10)
   },
 
-  // 尝试加载小程序码图片
-  loadQRCode() {
+  // 加载小程序码图片
+  async loadQRCode(canvas) {
     try {
-      const img = wx.createImage()
-      img.onload = () => {
-        this._qrCodeImage = img
-      }
-      img.onerror = () => {
-        this._qrCodeImage = null
-      }
-      img.src = '/images/qrcode.jpg'
+      const img = canvas.createImage()
+      await new Promise((resolve) => {
+        img.onload = () => {
+          this._qrCodeImage = img
+          resolve()
+        }
+        img.onerror = () => {
+          this._qrCodeImage = null
+          resolve()
+        }
+        setTimeout(() => resolve(), 3000)
+        img.src = '/images/qrcode.png'
+      })
     } catch (e) {
       this._qrCodeImage = null
     }

@@ -2,6 +2,7 @@
   "libVersion": "3.15.2",
   "projectname": "app",
   "condition": {},
+  "cloudEnvironment": "cloud1-d8gl6pbmo53f85521",
   "setting": {
     "urlCheck": false,
     "coverView": true,

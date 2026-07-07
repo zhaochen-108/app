@@ -1,6 +1,7 @@
 {
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
+  "cloudEnvironment": "cloud1-d8gl6pbmo53f85521",
   "setting": {
     "urlCheck": false,
     "es6": true,
@@ -38,7 +39,7 @@
   "appid": "wx1ea37f1e14a15e80",
   "projectname": "aiwan-schedule",
   "libVersion": "3.3.4",
-  "cloudfunctionTemplateRoot": "",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {},
   "srcMiniprogramRoot": "miniprogram/",
   "compileType": "miniprogram",
